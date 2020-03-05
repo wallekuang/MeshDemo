@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workspace>
+    <project>
+        </project>
+    <project>
+        <path>$WS_DIR$\Project.ewp</path>
+    </project>
+    <batchBuild>
+        <batchDefinition>
+            <name>debug</name>
+            <member>
+                <project>BlueNRG_Mesh_Lib</project>
+                <configuration>Debug</configuration>
+            </member>
+            <member>
+                <project>Project</project>
+                <configuration>Lighting_Client_DEBUG</configuration>
+            </member>
+        </batchDefinition>
+    </batchBuild>
+</workspace>

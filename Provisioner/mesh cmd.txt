@@ -1,0 +1,57 @@
+
+Device-0 -> F81D4FAE7DEC4B53A154A92E55A2C9D5
+Test command executed successfully
+
+
+
+
+
+扫描
+ATEP,SCAN
+配网
+ATEP,PRVN-0 3
+
+
+
+#define ENABLE_SERIAL_INTERFACE            1
+	
+#define ENABLE_UT                          0
+#define ENABLE_SERIAL_CONTROL              1
+	"ATCL"
+// vendor read
+	"ATVR"
+			ATVR 0003 000E
+// vendor write
+	"ATVW"
+			ATVW 0003 000E 01
+#define ENABLE_APPLI_TEST                  0
+	"ATAP"
+#define ENABLE_SERIAL_PRVN                 1
+	"ATEP"
+			"ROOT"
+			"SCAN"
+			"PRVN-"
+			"RESET"
+			"NDSCAN"  //未实现
+			"NDPRVN-" //未实现
+			
+
+
+			
+ATVW 0001 000E 01	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

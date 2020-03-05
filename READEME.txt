@@ -1,0 +1,88 @@
+
+
+
+此目录目前包含两个Demo: FirmwarePA  和 Provisioner
+
+
+FirmwarePA:主要用于演示如何增加PA，这个调试需要硬件支持，
+主要原理: RF在发送或者接收时 会产生一个信号(详细见BlueNRG-1/2 datasheet  3.20 TX/RX event alert)
+用户可以通过这个信号结合内部发送或者接收标志进行PA/LNA的切换控制。
+
+FirmwarePA: 目前只适配了BlueNRG-2 的工程
+工程路径: MeshDemo\FirmwarePA\Projects\BlueNRG-2\Applications\Lighting_Demo
+其中主要修改通过宏可以索引USE_EXT_PA=1
+
+建议设计使用GPIO引脚可以根据需求更换。Demo中的调试和原理图并没有对应，
+因为调试时手上的硬件并非原理图。
+
+主要使用了另外3个GPIO，一个用于检测RF 启动的信号，其他两个GPIO 用于控制 TX 和RX
+#define TXRXSTART_INPUT_PIN GPIO_Pin_11
+#define TXSTART_OUTPUT_PIN  GPIO_Pin_1
+#define RXSTART_OUTPUT_PIN  GPIO_Pin_7
+
+这里使用的PA芯片是 RFX2401C，如果使用其他PA芯片，修改原理也类似。
+
+
+
+
+Provisioner: 
+	使用设备端配网可以使用命令行的方式控制。
+	详细命令与宏见mesh_cmd.txt.
+	建议使用Tera Term  串口软件打开和发送相关命令(注意命令是带换行的，以换行符为结束)
+	工程路径:MeshDemo\Provisioner\Projects\BlueNRG-2\Applications\Provisioner_Demo
+
+重点的配置提醒和串口相关命令:
+
+
+#define TF_SERIAL_CTRL                     1	
+串口控制模块相关log
+
+#define ENABLE_PB_ADV
+使用嵌入式端配网建议使用这个，使用手机APP端则使用 ENABLE_PB_GATT，
+
+厂商自定义模型发布和订阅宏
+#define NUM_VENDOR_MODELS_TO_SUBSCRIBE 1
+#define NUM_VENDOR_MODELS_TO_PUBLISH 1
+#define NUM_VENDOR_MODELS_TO_BIND_APP 1
+
+串口命令：
+ATEP,SCAN	
+扫描
+
+ATEP,PRVN-0 3  // 0是扫描到的第几个设备，3 是分配的地址
+配网:
+	
+ATVW 0003 000E 01	// 厂商自定义模型写,0003是写到0x0003地址，使用默认的数据格式，
+ATVR 0003 000E		// 厂商自定义模型读
+vendor read/write
+
+Provisioner 这里是使用ST 的BlueNRG-2 开发板 STEVAL-IDB00BV1测试，如果你使用的硬件和我不同，如下可能需要修改：
+1. 屏蔽传感器相关的宏
+	//#define ENABLE_SENSOR_MODEL_SERVER
+	//#define ENABLE_SENSOR_MODEL_SERVER_SETUP
+1. 屏蔽按键的检测
+	//Appli_CheckForUnprovision();
+	//Appli_UpdateButtonState(GetButtonState() == BUTTON_PRESSED 
+                          || GetButton2State() == BUTTON_PRESSED);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
