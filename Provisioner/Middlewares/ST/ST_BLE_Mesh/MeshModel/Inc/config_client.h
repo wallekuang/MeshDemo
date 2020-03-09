@@ -98,6 +98,10 @@
 #define OPCODE_CONFIG_MODEL_PUBLI_STATUS        0x8019
 #define OPCODE_CONFIG_MODEL_APP_STATUS        0x803E
 
+#define OPCODE_CONFIG_NODE_RESET 							0x8049
+#define OPCODE_CONFIG_NODE_RESET_STATE 				0x804A
+
+
 /* Macros for usage in models ************************************************/
 
 #define CHKSIGMODEL(a) (a&0xffff0000)==0
@@ -313,6 +317,9 @@ typedef enum
 extern NodeInfo_t NodeInfo;
 
 /* Exported Functions Prototypes ---------------------------------------------*/
+
+MOBLE_RESULT ConfigClient_ResetNode(MOBLE_ADDRESS elementAddress);
+
 void CopyU8LittleEndienArray_fromU16word (MOBLEUINT8* pArray, MOBLEUINT16 inputWord);
 void CopyU8LittleEndienArray_fromU32word (MOBLEUINT8* pArray, MOBLEUINT32 inputWord);
 void CopyU8LittleEndienArray_2B_fromU32word (MOBLEUINT8* pArray, MOBLEUINT32 inputWord);

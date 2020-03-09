@@ -63,7 +63,7 @@ Provisioner ÕâÀïÊÇÊ¹ÓÃST µÄBlueNRG-2 ¿ª·¢°å STEVAL-IDB00BV1²âÊÔ£¬Èç¹ûÄãÊ¹ÓÃµÄÓ²¼
 1. ÆÁ±Î°´¼üµÄ¼ì²â
 	//Appli_CheckForUnprovision();
 	//Appli_UpdateButtonState(GetButtonState() == BUTTON_PRESSED 
-                          || GetButton2State() == BUTTON_PRESSED);
+    //                      || GetButton2State() == BUTTON_PRESSED);
 
 
 

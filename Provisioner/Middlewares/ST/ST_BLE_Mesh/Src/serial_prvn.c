@@ -69,6 +69,8 @@ extern MOBLEUINT16 nodeAddressOffset;
 /* Private function prototypes -----------------------------------------------*/
 static MOBLE_RESULT SerialPrvn_ProvisionDevice(char *text);
 static MOBLE_RESULT SerialPrvn_ScanDevices(char *text);
+static MOBLE_RESULT SerialPrvn_UnProvisionNode(char *text);
+
 /* Private functions ---------------------------------------------------------*/ 
 /**
 * @brief  This function scans and prints unprovisioned devices  
@@ -128,6 +130,18 @@ void SerialPrvn_Process(char *rcvdStringBuff, uint16_t rcvdStringSize)
           result = MOBLE_RESULT_FAIL;
       }
   }
+	else if (!strncmp(rcvdStringBuff+COMMAND_OFFSET, "PRRM-",4))
+	{
+			if(!PrvningInProcess)
+      {
+          result = SerialPrvn_UnProvisionNode(rcvdStringBuff+COMMAND_OFFSET);
+      }
+      else
+      {
+          BluenrgMesh_PrintStringCb("Link opened already. Wait.\r\n");
+          result = MOBLE_RESULT_FAIL;
+      }
+	}
      /* Command to start the unprovisioned devices */
   else if (!strncmp(rcvdStringBuff+COMMAND_OFFSET, "RESET",5))
   {
@@ -195,6 +209,19 @@ static MOBLE_RESULT SerialPrvn_ProvisionDevice(char *text)
 
   return result;
 }
+
+static MOBLE_RESULT SerialPrvn_UnProvisionNode(char *text)
+{
+  MOBLE_ADDRESS elementAddress = 0;
+  MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+  
+  sscanf(text, "PRRM-%hd", &elementAddress);  
+	TRACE_I(TF_PROVISION,"SerialPrvn_UnProvisionNode:%x \r\n", elementAddress); 
+  
+	result = ConfigClient_ResetNode(elementAddress);
+  return result;
+}
+
 
 /**
 * @brief  This function scans and prints unprovisioned devices  

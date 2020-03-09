@@ -88,6 +88,19 @@ const MODEL_OpcodeTableParam_t Config_Client_Opcodes_Table[] = {
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
+MOBLE_RESULT ConfigClient_ResetNode(MOBLE_ADDRESS elementAddress)
+{
+	MOBLE_RESULT result = MOBLE_RESULT_SUCCESS;
+	MOBLEUINT16 msg_opcode = OPCODE_CONFIG_NODE_RESET;
+
+	if((ADDRESS_IS_UNASSIGNED(elementAddress)))
+		return MOBLE_RESULT_INVALIDARG;
+	
+	result = ConfigClientModel_SendMessage(elementAddress,msg_opcode,NULL,0);
+	
+	return result;
+}
+
 /**
 * @brief  ConfigClient_CompositionDataGet: This function is called to read the 
           composition data of the node 
@@ -1528,6 +1541,10 @@ MOBLE_RESULT ConfigClientModel_ProcessMessageCb(MOBLE_ADDRESS peer_addr,
       ConfigClient_ModelAppStatus(pRxData, dataLength); 
       break;
     }
+
+	 case OPCODE_CONFIG_NODE_RESET_STATE:
+	 		TRACE_M(TF_CONFIG_CLIENT,"Node:%x has been remove\n", peer_addr);
+	 	break;
 
   default:
     {

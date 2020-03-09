@@ -8,10 +8,12 @@ Test command executed successfully
 
 扫描
 ATEP,SCAN
+
 配网
 ATEP,PRVN-0 3
 
-
+�Ƴ��ض�Ԫ�ؽڵ�
+ATEP,PRRM-0003
 
 #define ENABLE_SERIAL_INTERFACE            1
 	
@@ -32,8 +34,8 @@ ATEP,PRVN-0 3
 			"SCAN"
 			"PRVN-"
 			"RESET"
-			"NDSCAN"  //未实现
-			"NDPRVN-" //未实现
+			"NDSCAN"  //未实�?
+			"NDPRVN-" //未实�?
 			
 
 
@@ -42,7 +44,7 @@ ATVW 0001 000E 01
 
 
 
-
+ATEP,PRRM-3
 
 
 
